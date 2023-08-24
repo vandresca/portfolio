@@ -5,46 +5,32 @@ const smtp = require('nodemailer');
 const app = express();
 app.use(bodyParser.json());
 
-// Replace contact@example.com with your real receiving email address
-const receivingEmailAddress = 'vandresca@outlook.es';
+const { MailtrapClient } = require("mailtrap");
 
-// Create a new SMTP client
-const transporter = smtp.createTransport({
-  host: 'smtp.example.com',
-  port: 587,
-  auth: {
-    user: 'example',
-    password: 'pass',
-  },
-});
+const TOKEN = "********097f";
+const ENDPOINT = "https://send.api.mailtrap.io/";
 
-app.post('/contact', (req, res) => {
-  // Get the form data
-  const name = req.body.name;
-  const email = req.body.email;
-  const subject = req.body.subject;
-  const message = req.body.message;
+const client = new MailtrapClient({ endpoint: ENDPOINT, token: TOKEN });
 
-  // Create a new email message
-  const mail = {
-    from: {
-      name: name,
-      email: email,
-    },
-    to: receivingEmailAddress,
-    subject: subject,
-    text: message,
-  };
+const sender = {
+  email: "victorac1981@gmail.com",
+  name: "Mailtrap Test",
+};
+const recipients = [
+  {
+    email: "vandresca@outlook.es",
+  }
+];
 
-  // Send the email message
-  transporter.sendMail(mail, (err) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send('Email sent successfully');
-    }
-  });
-});
+client
+  .send({
+    from: sender,
+    to: recipients,
+    subject: "You are awesome!",
+    text: "Congrats for sending test email with Mailtrap!",
+    category: "Integration Test",
+  })
+  .then(console.log, console.error);
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');
