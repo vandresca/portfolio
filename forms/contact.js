@@ -6,7 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Replace contact@example.com with your real receiving email address
-const receivingEmailAddress = 'contact@example.com';
+const receivingEmailAddress = 'vandresca@outlook.es';
 
 // Create a new SMTP client
 const transporter = smtp.createTransport({
