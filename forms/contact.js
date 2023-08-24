@@ -1,12 +1,12 @@
 const nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransport({
-  host: 'live.smtp.mailtrap.io',
-  port: 2525,
+var transport = nodemailer.createTransport({
+  host: "live.smtp.mailtrap.io",
+  port: 587,
   auth: {
-    user: 'api',
-    password: 'e7bf5af58bf54ca93e3adf52fc4d097f',
-  },
+    user: "api",
+    pass: "e7bf5af58bf54ca93e3adf52fc4d097f"
+  }
 });
 
 const mail = {
@@ -19,10 +19,10 @@ const mail = {
   text: 'This is a test email.',
 };
 
-transporter.sendMail(mail, (err) => {
+transport.sendMail(mail, (err) => {
   if (err) {
     console.log(err);
   } else {
-    console.log('Email sent successfully');
+    console.log('Correo enviado con éxito');
   }
 });
