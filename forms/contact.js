@@ -1,10 +1,3 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const smtp = require('nodemailer');
-
-const app = express();
-app.use(bodyParser.json());
-
 const { MailtrapClient } = require("mailtrap");
 
 const TOKEN = "********097f";
@@ -31,7 +24,3 @@ client
     category: "Integration Test",
   })
   .then(console.log, console.error);
-
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
-});
